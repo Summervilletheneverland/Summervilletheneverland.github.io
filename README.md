@@ -1,20 +1,7 @@
 <html lang="en">
 <head>
 <title>Summerville "The Neverland"</title>
-<style>
-*{font-family:'Times New Roman';font-size:normal;}
-#topic{ color:white;background-color:rgb(27, 149, 224);text-align:center;font-size:1rem; }
-p,i{font-size:0.75rem;}
-li{font-size:0.75rem;}
-#table{font-size:large;border:1px solid black;width:100%;background-color:brown; }
-#about{text-align:center;color:blue;}
-.link{color:white; text-decoration:none;font-size:2.25rem;}
-.center {display: block;margin-left: auto;margin-right: auto;}
-.cont{text-align:center;
-color:black;font-size:2rem;}
-td{padding:2%;}
-.rides{font-size:2rem;color:blue;text-align:center;}
-</style>
+<link rel="stylesheet" href="summervilletheneverland.css">
 </head>
 <body>
 <h1 id="topic"> SUMMERVILLE "THE NEVERLAND"</h1>
