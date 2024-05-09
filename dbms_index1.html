@@ -1,0 +1,89 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPL</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 10px 0;
+    }
+    nav {
+        background-color: #f4f4f4;
+        padding: 10px;
+    }
+    nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+    nav ul li {
+        display: inline-block;
+        margin-right: 20px;
+    }
+    section {
+        padding: 20px;
+    }
+    select {
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    table, th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+    <header>
+        <div style="background-color: blue;">
+    
+            <h1 style="font-weight:bold;color:white">IPL</h1>
+          </div>
+        </header>
+
+    <nav>
+        <ul>
+            <li><a href="#" id="players">Players</a></li>
+            <li><a href="#" id="teams">Teams</a></li>
+            <li><a href="#" id="seasons">Seasons</a></li>
+            
+        </ul>
+    </nav>
+    <section id="content">
+        <h2>Select an option from the navigation menu</h2>
+    </section>
+    <script>
+        document.getElementById('players').addEventListener('click', function() {
+            
+            document.getElementById('content').innerHTML = '<h2>Player Information</h2><select><option>Select Player</option><option>Rohit Sharma</option><option>Virat Kohli</option></select>';
+        });
+
+        document.getElementById('teams').addEventListener('click', function() {
+            
+            document.getElementById('content').innerHTML = '<h2>Team Information</h2><select><option>Select Team</option><option>Mumbai Indians</option><option>Kolkata Knight Riders</option></select>';
+        });
+
+        document.getElementById('seasons').addEventListener('click', function() {
+            
+            document.getElementById('content').innerHTML = '<h2>Season Information</h2><select><option>Select Season</option><option>Season 1</option><option>Season 2</option></select>';
+        });
+ 
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</body>
+</html>
