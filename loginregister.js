@@ -15,7 +15,9 @@ function LoginRegister() {
         const loginLink=()=>{
             setAction('');
         };
+        const [btn,setBtn]=useState([]);
         const [errors,setErrors]=useState({})
+        const[register_success,setRegister_success]=useState('')
        const [values,setValues]=useState({
         email:'',
         password:''
@@ -93,7 +95,7 @@ function LoginRegister() {
             
         }
 
-        function SignupValidation(){
+        const SignupValidation=async()=>{
             let error={}
             error.username1=''
             const password_pattern= /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
@@ -105,28 +107,26 @@ function LoginRegister() {
                     const username=values1.username1; error.username1='';
                     const email=values1.email1; 
                     const password=values1.password1;error.email1=''
-                    fetch('http://localhost:4000/register',{
+                    const response=await fetch('http://localhost:4000/register',{
                        method:'POST',
                        headers: {'Content-Type': 'application/json'},
-                    body:JSON.stringify({username,email,password})     
-                    }).then( response=>response.json())
-                    .then(data=>{
-                        console.log("data.rowCOunt:"+data.rowCount)
-                     if(data.rowCount>0){
+                    body:JSON.stringify({username,email,password})
+                    })
+                    const result=await response.json()
+                    console.log("result.rowCOunt:"+result.rowCount)
+                     if(result.rowCount>0){
                         console.log('if');
-                        alert('email_id already exist')
+                        alert('email_id already exist');
                         setValues1({username1:'',email1:'',password1:''})
-                         error.email1='Email id already taken'
+                         error.email1='Email id already taken';
                      }
                      else{
-                        console.log('else')
+                        console.log('else');
                         error.email1='';
-                        console.log('error.password1:'+error.password1)
+                        console.log('error.password1:'+error.password1);
                      }
-                    
-                 })
                 }
-            console.log("pas:"+error.password1+",email:"+error.email1)
+            console.log("pas:"+error.password1+",email:"+error.email1);
            return error;    
     }     
                 //    catch(err){  
@@ -140,6 +140,15 @@ function LoginRegister() {
         // }
     
 
+        const handleInput = (event)=>{
+            setValues(prev => ({...prev,[event.target.name]:[event.target.value]}))
+            errors.password=''
+        }
+        const handleInput1 = (event)=>{
+            setValues1(prev => ({...prev,[event.target.name]:[event.target.value]}))
+           //check_email(values1);          
+        }
+
         const Submit=(event)=>{
             event.preventDefault();
             setErrors(LoginValidation(values)) 
@@ -148,12 +157,14 @@ function LoginRegister() {
         }
         const Submit1= async(event)=>{
             event.preventDefault();
-            setErrors(SignupValidation());
-            if(errors.email1===''&&errors.password1===''){
+            
+            if(errors.username1===""&&errors.email1===''&&errors.password1===''){
                 setValues1({username1:'',email1:'',password1:''})
                 alert('register successful')
                 setAction('');
             } 
+            setErrors(SignupValidation());
+            
             console.log("error values:"+errors.username1+"  "+errors.email1+"  "+errors.password1)
         }  
   return (
@@ -163,12 +174,12 @@ function LoginRegister() {
         <form action='iplt20.com' target='' onSubmit={Submit}>
             <h1>Login</h1>
             <div className='input-box'>
-                <input type='email' placeholder='Email' name='email' value={values.email}  required/>
+                <input type='email' placeholder='Email' name='email' onChange={handleInput} value={values.email}  required/>
                 <FaEnvelope className='icon'/>
             </div>
             
             <div className='input-box'>
-                <input type='password' placeholder='Password' name='password'  value={values.password} required/>
+                <input type='password' placeholder='Password' name='password' onChange={handleInput} value={values.password} required/>
                 <FaLock className='icon'/>
             </div>
             {errors.password &&<span className='text-danger'>{errors.password}</span>}
@@ -183,15 +194,15 @@ function LoginRegister() {
         <form action='' onSubmit={Submit1}>
             <h1>Register</h1>
             <div className='input-box'>
-                <input type='text' placeholder='Username' name='username1'  value={values1.username1} required/>
+                <input type='text' placeholder='Username' name='username1' onChange={handleInput1} value={values1.username1} required/>
                 <FaUser className='icon'/>
             </div>
             <div className='input-box'>
-                <input type='email' placeholder='Email' name='email1'  value={values1.email1} required/>
+                <input type='email' placeholder='Email' name='email1' onChange={handleInput1} value={values1.email1} required/>
                 <FaEnvelope className='icon'/>
             </div>
             <div className='input-box'>
-                <input type='password' placeholder='Password' name='password1' value={values1.password1} required/>
+                <input type='password' placeholder='Password' name='password1' onChange={handleInput1} value={values1.password1} required/>
                 <FaLock className='icon'/>
                 {errors.password1 &&<span className='text-danger'>{errors.password1}</span>}
             </div>
