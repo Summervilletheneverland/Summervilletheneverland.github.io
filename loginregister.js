@@ -15,9 +15,7 @@ function LoginRegister() {
         const loginLink=()=>{
             setAction('');
         };
-        const [btn,setBtn]=useState([]);
         const [errors,setErrors]=useState({})
-        const[register_success,setRegister_success]=useState('')
        const [values,setValues]=useState({
         email:'',
         password:''
@@ -104,8 +102,6 @@ function LoginRegister() {
             }
             else{
                 console.log("else of validation")
-                error.password1=""       
-                
                     const username=values1.username1; error.username1='';
                     const email=values1.email1; 
                     const password=values1.password1;error.email1=''
@@ -144,15 +140,6 @@ function LoginRegister() {
         // }
     
 
-        const handleInput = (event)=>{
-            setValues(prev => ({...prev,[event.target.name]:[event.target.value]}))
-            errors.password=''
-        }
-        const handleInput1 = (event)=>{
-            setValues1(prev => ({...prev,[event.target.name]:[event.target.value]}))
-           //check_email(values1);          
-        }
-
         const Submit=(event)=>{
             event.preventDefault();
             setErrors(LoginValidation(values)) 
@@ -161,15 +148,14 @@ function LoginRegister() {
         }
         const Submit1= async(event)=>{
             event.preventDefault();
-            
-            setErrors(SignupValidation()); 
-            console.log("error values:"+errors.username1+"  "+errors.email1+"  "+errors.password1)
-            if(errors.username1===""&&errors.email1===''&&errors.password1===''){
+            setErrors(SignupValidation());
+            if(errors.email1===''&&errors.password1===''){
                 setValues1({username1:'',email1:'',password1:''})
                 alert('register successful')
                 setAction('');
-            }
-        }
+            } 
+            console.log("error values:"+errors.username1+"  "+errors.email1+"  "+errors.password1)
+        }  
   return (
     <div className='login_page'>
     <div className={`wrapper${action}`}>
@@ -177,12 +163,12 @@ function LoginRegister() {
         <form action='iplt20.com' target='' onSubmit={Submit}>
             <h1>Login</h1>
             <div className='input-box'>
-                <input type='email' placeholder='Email' name='email' onChange={handleInput} value={values.email}  required/>
+                <input type='email' placeholder='Email' name='email' value={values.email}  required/>
                 <FaEnvelope className='icon'/>
             </div>
             
             <div className='input-box'>
-                <input type='password' placeholder='Password' name='password' onChange={handleInput} value={values.password} required/>
+                <input type='password' placeholder='Password' name='password'  value={values.password} required/>
                 <FaLock className='icon'/>
             </div>
             {errors.password &&<span className='text-danger'>{errors.password}</span>}
@@ -197,15 +183,15 @@ function LoginRegister() {
         <form action='' onSubmit={Submit1}>
             <h1>Register</h1>
             <div className='input-box'>
-                <input type='text' placeholder='Username' name='username1' onChange={handleInput1} value={values1.username1} required/>
+                <input type='text' placeholder='Username' name='username1'  value={values1.username1} required/>
                 <FaUser className='icon'/>
             </div>
             <div className='input-box'>
-                <input type='email' placeholder='Email' name='email1' onChange={handleInput1} value={values1.email1} required/>
+                <input type='email' placeholder='Email' name='email1'  value={values1.email1} required/>
                 <FaEnvelope className='icon'/>
             </div>
             <div className='input-box'>
-                <input type='password' placeholder='Password' name='password1' onChange={handleInput1} value={values1.password1} required/>
+                <input type='password' placeholder='Password' name='password1' value={values1.password1} required/>
                 <FaLock className='icon'/>
                 {errors.password1 &&<span className='text-danger'>{errors.password1}</span>}
             </div>
